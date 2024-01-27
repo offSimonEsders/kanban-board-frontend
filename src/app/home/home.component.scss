@@ -59,6 +59,13 @@
 
 }
 
+.tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 90%;
+}
+
 @keyframes slideIn {
   100% {
     transform: translateX(0%);
