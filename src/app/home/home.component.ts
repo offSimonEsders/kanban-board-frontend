@@ -51,14 +51,12 @@ export class HomeComponent implements OnInit {
   }
 
   drop(event: any, droplist: string) {
-    console.log(event.currentIndex) // index after drop
-    //console.log(event.item.data); //drag data
     const task = JSON.parse(event.item.data);
     const index = this.tasks.findIndex((t: Task) => {
       return t.id === task.id;
     });
     const taskNewState: Task = this.changeContainer(task, droplist, index);
-    this.tasks = this.changeIndexes(taskNewState, event.currentIndex, this.tasks, this.todo);
+    this.callChangeIndexDependingOnState(taskNewState, event.currentIndex);
     this.filterTasks();
   }
 
@@ -67,9 +65,26 @@ export class HomeComponent implements OnInit {
     return this.tasks[indexInTasks];
   }
 
+  callChangeIndexDependingOnState(taskNewState: Task, currentIndex: number) {
+    switch (taskNewState.state) {
+      case 'todo':
+        this.tasks = this.changeIndexes(taskNewState, currentIndex, this.tasks, this.todo);
+        break;
+      case 'inprogress':
+        this.tasks = this.changeIndexes(taskNewState, currentIndex, this.tasks, this.inprogress);
+        break;
+      case 'awaitfeedback':
+        this.tasks = this.changeIndexes(taskNewState, currentIndex, this.tasks, this.awaitfeedback);
+        break;
+      case 'done':
+        this.tasks = this.changeIndexes(taskNewState, currentIndex, this.tasks, this.done);
+        break;
+    }
+  }
+
   changeIndexes(task: Task, newIndex: number, mainTasksArray: Task[], taskArrayToEdit: Task[]) {
     taskArrayToEdit = this.removeFromTaskArray(taskArrayToEdit, task);
-    let seperatedTasks: Task[] = taskArrayToEdit.slice(newIndex, this.todo.length);
+    let seperatedTasks: Task[] = taskArrayToEdit.slice(newIndex, taskArrayToEdit.length);
     taskArrayToEdit = this.removeSeperateTasksFromTaskArray(seperatedTasks, taskArrayToEdit);
     taskArrayToEdit.push(task);
     taskArrayToEdit = taskArrayToEdit.concat(seperatedTasks);
