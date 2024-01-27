@@ -1,0 +1,43 @@
+<section class="home-frame">
+  <p>
+    <mat-toolbar color="primary" class="toolbar">
+      <button (click)="togglenav()" mat-icon-button class="example-icon"
+              aria-label="Example icon-button with menu icon">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>👋Hallo ...</span>
+      <span class="spacer"></span>
+      <button mat-raised-button color="accent">Add card</button>
+    </mat-toolbar>
+  </p>
+
+  <section *ngIf="shownav" class="side-nav">
+    <div class="content">
+      <h1>Kanban board</h1>
+      <nav>
+        <button mat-button>Logout</button>
+      </nav>
+    </div>
+    <div (click)="togglenav()" class="overlay"></div>
+  </section>
+
+  <section class="cards-frame">
+    <div class="todo">
+      <h2>Todo</h2>
+      <div class="tasks"></div>
+    </div>
+    <div class="in-progress">
+      <h2>In progress</h2>
+      <div class="tasks"></div>
+    </div>
+    <div class="await-feedback">
+      <h2>Await Feedback</h2>
+      <div class="tasks"></div>
+    </div>
+    <div class="done">
+      <h2>Done</h2>
+      <div class="tasks"></div>
+    </div>
+  </section>
+
+</section>
