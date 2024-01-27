@@ -1,0 +1,29 @@
+.signup-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.toolbar {
+  position: absolute;
+  width: 100%;
+  top: 0;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+}
+
+.not-allowed {
+  pointer-events: all !important;
+  cursor: not-allowed !important;
+}

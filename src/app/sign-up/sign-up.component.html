@@ -1,0 +1,43 @@
+<section class="signup-frame">
+  <p class="toolbar">
+    <mat-toolbar class="container">
+      <span>Kanban board by Simon Esders✌</span>
+      <button (click)="this.router.navigate([''])" mat-stroked-button color="primary">Login</button>
+    </mat-toolbar>
+  </p>
+  <form onsubmit="alert('boom')" [formGroup]="customformGroup" class="signup-form">
+    <h1>Sign up</h1>
+    <mat-form-field>
+      <mat-label>Enter your Username</mat-label>
+      <input matInput placeholder="batMan03" [formControl]="name" required>
+      @if (name.invalid) {
+        <mat-error>{{ getErrorMessageName() }}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required>
+      @if (password.invalid) {
+        <mat-error>{{ getErrorMessagePassword() }}</mat-error>
+      }
+      <button mat-icon-button matSuffix (click)="changePasswordVisibility($event)" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password2" required>
+      @if (password2.invalid) {
+        <mat-error>{{ getErrorMessagePassword2() }}</mat-error>
+      }
+      <button mat-icon-button matSuffix (click)="changePasswordVisibility($event)" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-raised-button color="primary" [class]="customformGroup.invalid ? 'not-allowed' : ''" type="submit"
+            [disabled]="customformGroup.invalid">Sign up
+    </button>
+  </form>
+</section>

@@ -1,0 +1,31 @@
+<section class="login-frame">
+  <p class="toolbar">
+    <mat-toolbar>
+      <span>Kanban board by Simon Esders✌</span>
+    </mat-toolbar>
+  </p>
+  <form class="login-form">
+    <h1>Login</h1>
+    <mat-form-field>
+      <mat-label>Enter your Username</mat-label>
+      <input matInput placeholder="batMan03" [formControl]="name" required>
+      @if (name.invalid) {
+        <mat-error>{{getErrorMessageName()}}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required>
+      @if (password.invalid) {
+        <mat-error>{{getErrorMessagePassword()}}</mat-error>
+      }
+      <button mat-icon-button matSuffix (click)="changePasswordVisibility($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="button-field">
+      <button (click)="goToSignUp($event)" mat-stroked-button color="primary">Sign up</button>
+      <button mat-raised-button color="primary">Log in</button>
+    </div>
+  </form>
+</section>
