@@ -1,9 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MaterialModule} from "../material/material.module";
 import {CommonModule} from "@angular/common";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {CardComponent} from "./card/card.component";
-import {findIndex} from "rxjs";
+import {Task} from "../modules/task";
 
 @Component({
   selector: 'app-home',
@@ -12,60 +12,55 @@ import {findIndex} from "rxjs";
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   shownav: boolean = false;
-  tasks: any;
-  todos: Array<string> = ['1', '2'];
-  inprogress: Array<string> = ['3', '4'];
-  awaitfeedback: Array<string> = ['5'];
-  done: Array<string> = ['6'];
+  tasks: Array<Task> = [new Task('1', 0, 'todo', 'asdfg'), new Task('2', 1, 'todo', 'asdgrrdgd'), new Task('5', 1, 'done', '894jj'), new Task('6', 1, 'awaitfeedback', 'ajnjkjkr12')];
+  todo: Task[] = [];
+  inprogress: Task[] = [];
+  awaitfeedback: Task[] = [];
+  done: Task[] = [];
 
-  togglenav() {
+  ngOnInit() {
+    this.filterTasks();
+  }
+
+  toggleNav() {
     this.shownav = !this.shownav;
   }
 
+  filterTasks() {
+    this.todo = this.tasks.filter((task: Task) => {
+      return task.state === 'todo'
+    });
+    this.inprogress = this.tasks.filter((task: Task) => {
+      return task.state === 'inprogress'
+    });
+    this.awaitfeedback = this.tasks.filter((task: Task) => {
+      return task.state === 'awaitfeedback'
+    });
+    this.done = this.tasks.filter((task: Task) => {
+      return task.state === 'done'
+    });
+  }
+
   drop(event: any, droplist: string) {
-    console.log(event.item)
-    console.log(event.item.data); //drag data
-    console.log(event.previousContainer.id)
-    const task = event.item.data;
-    const previousContainerId = event.previousContainer.id;
-    this.removeFromPreviousContainer(task, previousContainerId);
-    this.addToNewContainer(task, droplist);
+    //console.log(event.item.data) // index after drop
+    //console.log(event.item.data); //drag data
+    const task = JSON.parse(event.item.data);
+    this.changeContainer(task, droplist);
   }
 
-  removeFromPreviousContainer(item: string, previousContainerId: string) {
-    switch (previousContainerId) {
-      case 'todo':
-        this.todos.splice(this.todos.indexOf(item), 1);
-        break;
-      case 'inprogress':
-        this.inprogress.splice(this.todos.indexOf(item), 1);
-        break;
-      case 'awaitfeedback':
-        this.awaitfeedback.splice(this.todos.indexOf(item), 1);
-        break;
-      case 'done':
-        this.done.splice(this.todos.indexOf(item), 1);
-        break;
-    }
+  changeContainer(item: Task, newContainerId: string) {
+    const indexInTasks = this.tasks.findIndex((t: Task) => {
+      return t.id === item.id;
+    });
+    this.tasks[indexInTasks].state = newContainerId;
+    this.filterTasks();
   }
 
-  addToNewContainer(item: string, newContainerId: string) {
-    switch (newContainerId) {
-      case 'todo':
-        this.todos.push(item);
-        break;
-      case 'inprogress':
-        this.inprogress.push(item);
-        break;
-      case 'awaitfeedback':
-        this.awaitfeedback.push(item);
-        break;
-      case 'done':
-        this.done.push(item);
-        break;
-    }
+  changeIndexes() {
+
   }
 
+  protected readonly JSON = JSON;
 }

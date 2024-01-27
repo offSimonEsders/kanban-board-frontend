@@ -9,5 +9,5 @@ import {MaterialModule} from "../../material/material.module";
   styleUrl: './card.component.scss'
 })
 export class CardComponent {
-  @Input() data?: string;
+  @Input() data?: any;
 }

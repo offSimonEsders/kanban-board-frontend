@@ -1,7 +1,7 @@
 <section class="home-frame">
   <p>
     <mat-toolbar color="primary" class="toolbar">
-      <button (click)="togglenav()" mat-icon-button class="example-icon"
+      <button (click)="toggleNav()" mat-icon-button class="example-icon"
               aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
       </button>
@@ -18,32 +18,32 @@
         <button mat-button>Logout</button>
       </nav>
     </div>
-    <div (click)="togglenav()" class="overlay"></div>
+    <div (click)="toggleNav()" class="overlay"></div>
   </section>
 
   <section cdkDropListGroup class="cards-frame">
     <div class="todo">
       <h2>Todo</h2>
       <div cdkDropList id="todo" (cdkDropListDropped)="drop($event, 'todo')" class="tasks">
-        <app-card *ngFor="let task of todos" cdkDrag cdkDragData="{{task}}" [data]="task"></app-card>
+        <app-card *ngFor="let task of todo" cdkDrag cdkDragData="{{JSON.stringify(task)}}" [data]="task"></app-card>
       </div>
     </div>
     <div class="in-progress">
       <h2>In progress</h2>
       <div cdkDropList id="inprogress" (cdkDropListDropped)="drop($event, 'inprogress')" class="tasks">
-        <app-card *ngFor="let task of inprogress" cdkDrag cdkDragData="{{task}}" [data]="task"></app-card>
+        <app-card *ngFor="let task of inprogress" cdkDrag cdkDragData="{{JSON.stringify(task)}}" [data]="task"></app-card>
       </div>
     </div>
     <div class="await-feedback">
       <h2>Await Feedback</h2>
       <div cdkDropList id="awaitfeedback" (cdkDropListDropped)="drop($event, 'awaitfeedback')" class="tasks">
-        <app-card *ngFor="let task of awaitfeedback" cdkDrag cdkDragData="{{task}}" [data]="task"></app-card>
+        <app-card *ngFor="let task of awaitfeedback" cdkDrag cdkDragData="{{JSON.stringify(task)}}" [data]="task"></app-card>
       </div>
     </div>
     <div class="done">
       <h2>Done</h2>
       <div cdkDropList id="done" (cdkDropListDropped)="drop($event, 'done')" class="tasks">
-        <app-card *ngFor="let task of done" cdkDrag cdkDragData="{{task}}" [data]="task"></app-card>
+        <app-card *ngFor="let task of done" cdkDrag cdkDragData="{{JSON.stringify(task)}}" [data]="task"></app-card>
       </div>
     </div>
   </section>
