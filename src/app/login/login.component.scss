@@ -14,9 +14,21 @@
 .login-form {
   display: flex;
   flex-direction: column;
+  width: 320px;
 }
 
 .button-field {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
+
+  button {
+    flex-grow: 1;
+  }
+
+}
+
+.not-allowed {
+  pointer-events: all !important;
+  cursor: not-allowed !important;
 }

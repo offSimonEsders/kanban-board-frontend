@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {MaterialModule} from "../material/material.module";
-import {FormControl, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 
 @Component({
@@ -16,11 +16,16 @@ import {Router} from "@angular/router";
 export class LoginComponent {
   hide: boolean = true;
 
-  name = new FormControl('', [Validators.required]);
-  password = new FormControl('', [Validators.minLength(8)]);
-
   constructor(private router: Router) {
   }
+
+  name = new FormControl('', [Validators.required]);
+  password = new FormControl('', [Validators.required, Validators.minLength(8)]);
+
+  customformGroup = new FormGroup({
+    name: this.name,
+    password: this.password
+  });
 
   goToSignUp(event: Event) {
     event.preventDefault();
@@ -38,6 +43,10 @@ export class LoginComponent {
   getErrorMessagePassword() {
     if (this.password.hasError('required')) {
       return 'You must enter a value';
+    }
+
+    if(this.password.hasError('minlength')) {
+      return 'The password should be at least 8 characters long'
     }
 
     return this.password.hasError('password') ? 'Not a valid password' : '';
