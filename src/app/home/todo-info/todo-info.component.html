@@ -1,0 +1,24 @@
+<section class="todo-info-frame">
+  <div class="background" (click)="close.emit(true)"></div>
+  <mat-card class="todo-info-card-frame">
+    <mat-card-content class="todo-info-content">
+      <header>
+        <h1>Todo info:</h1>
+        <button (click)="close.emit(true)" class="close-button" mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+          <mat-icon>close</mat-icon>
+        </button>
+      </header>
+      <h2>{{todo?.title}}</h2>
+      <p>{{todo?.description}}</p>
+      <p><b>Creator: {{todo?.creator?.username}}</b></p>
+      <div class="action-buttons">
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>

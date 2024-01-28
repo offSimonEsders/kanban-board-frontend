@@ -25,27 +25,29 @@
     <div class="todo">
       <h2>Todo</h2>
       <div cdkDropList id="todo" (cdkDropListDropped)="drop($event, 'todo')" class="tasks">
-        <app-card *ngFor="let task of todo" cdkDrag cdkDragData="{{JSON.stringify(task)}}" [task]="task"></app-card>
+        <app-card *ngFor="let todo of todo" (infoTodo)="showTodoInfo($event)" [todo]="todo"></app-card>
       </div>
     </div>
     <div class="in-progress">
       <h2>In progress</h2>
       <div cdkDropList id="inprogress" (cdkDropListDropped)="drop($event, 'inprogress')" class="tasks">
-        <app-card *ngFor="let task of inprogress" cdkDrag cdkDragData="{{JSON.stringify(task)}}" [task]="task"></app-card>
+        <app-card *ngFor="let todo of inprogress" (infoTodo)="showTodoInfo($event)" [todo]="todo"></app-card>
       </div>
     </div>
     <div class="await-feedback">
       <h2>Await Feedback</h2>
       <div cdkDropList id="awaitfeedback" (cdkDropListDropped)="drop($event, 'awaitfeedback')" class="tasks">
-        <app-card *ngFor="let task of awaitfeedback" cdkDrag cdkDragData="{{JSON.stringify(task)}}" [task]="task"></app-card>
+        <app-card *ngFor="let todo of awaitfeedback" (infoTodo)="showTodoInfo($event)" [todo]="todo"></app-card>
       </div>
     </div>
     <div class="done">
       <h2>Done</h2>
       <div cdkDropList id="done" (cdkDropListDropped)="drop($event, 'done')" class="tasks">
-        <app-card *ngFor="let task of done" cdkDrag cdkDragData="{{JSON.stringify(task)}}" [task]="task"></app-card>
+        <app-card *ngFor="let todo of done" (infoTodo)="showTodoInfo($event)" [todo]="todo"></app-card>
       </div>
     </div>
   </section>
+
+  <app-todo-info *ngIf="infoTodo" [todo]="infoTodo" (close)="closeTodoInfo()"></app-todo-info>
 
 </section>

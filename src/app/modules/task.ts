@@ -1,6 +1,6 @@
 import {User} from "./user";
 
-export class Task {
+export class Todo {
   title: string;
   description: string;
   state: string;

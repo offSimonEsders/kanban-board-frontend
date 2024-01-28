@@ -1,7 +1,7 @@
-<mat-card class="card-frame">
+<mat-card (click)="infoTodo.emit(todo)" cdkDrag cdkDragData="{{JSON.stringify(todo)}}" class="card-frame">
   <mat-card-content>
-    <h1>{{task?.title}}</h1>
-    <p>{{task?.description}}</p>
-    <p><b>By: {{task?.creator?.username}}</b></p>
+    <h1>{{todo?.title}}</h1>
+    <p>{{todo?.description}}</p>
+    <p><b>By: {{todo?.creator?.username}}</b></p>
   </mat-card-content>
 </mat-card>
