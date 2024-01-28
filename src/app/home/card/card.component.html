@@ -1,3 +1,7 @@
 <mat-card class="card-frame">
-  <mat-card-content>Simple card {{data.title}}</mat-card-content>
+  <mat-card-content>
+    <h1>{{task?.title}}</h1>
+    <p>{{task?.description}}</p>
+    <p><b>By: {{task?.creator?.username}}</b></p>
+  </mat-card-content>
 </mat-card>

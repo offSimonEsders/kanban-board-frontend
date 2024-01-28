@@ -4,6 +4,7 @@ import {CommonModule} from "@angular/common";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {CardComponent} from "./card/card.component";
 import {Task} from "../modules/task";
+import {BackendService} from "../services/backend.service";
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ import {Task} from "../modules/task";
 })
 export class HomeComponent implements OnInit {
   shownav: boolean = false;
-  tasks: Array<Task> = [new Task('1', 0, 'todo', 'asdfg'), new Task('2', 1, 'todo', 'asdgrrdgd'), new Task('5', 1, 'done', '894jj'), new Task('6', 1, 'awaitfeedback', 'ajnjkjkr12')];
+  tasks: Task[] = []; //[new Task('1', 0, 'todo', 'asdfg'), new Task('2', 1, 'todo', 'asdgrrdgd'), new Task('5', 1, 'done', '894jj'), new Task('6', 1, 'awaitfeedback', 'ajnjkjkr12')];
   todo: Task[] = [];
   inprogress: Task[] = [];
   awaitfeedback: Task[] = [];
@@ -27,7 +28,13 @@ export class HomeComponent implements OnInit {
     done: []
   }
 
-  ngOnInit() {
+  constructor(private backenService: BackendService) {
+  }
+
+  async ngOnInit() {
+    let resp = await this.backenService.getTodos();
+    this.tasks = await resp.json();
+    console.log(this.tasks)
     this.filterTasks();
   }
 

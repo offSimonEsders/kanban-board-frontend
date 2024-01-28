@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {MaterialModule} from "../../material/material.module";
+import {Task} from '../../modules/task';
 
 @Component({
   selector: 'app-card',
@@ -9,5 +10,5 @@ import {MaterialModule} from "../../material/material.module";
   styleUrl: './card.component.scss'
 })
 export class CardComponent {
-  @Input() data?: any;
+  @Input() task?: Task;
 }
