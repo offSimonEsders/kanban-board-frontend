@@ -5,7 +5,7 @@
       <button (click)="this.router.navigate([''])" mat-stroked-button color="primary">Login</button>
     </mat-toolbar>
   </p>
-  <form onsubmit="alert('boom')" [formGroup]="customformGroup" class="signup-form">
+  <form [formGroup]="customformGroup" class="signup-form">
     <h1>Sign up</h1>
     <mat-form-field>
       <mat-label>Enter your Username</mat-label>
@@ -36,7 +36,7 @@
         <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
       </button>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit"
+    <button mat-raised-button color="primary" type="submit" (click)="register()"
             [disabled]="customformGroup.invalid">Sign up
     </button>
   </form>

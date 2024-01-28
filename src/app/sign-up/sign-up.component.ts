@@ -2,6 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {MaterialModule} from "../material/material.module";
 import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import {BackendService} from "../services/backend.service";
 
 @Component({
   selector: 'app-sign-up',
@@ -14,7 +15,7 @@ export class SignUpComponent {
 
   hide: boolean = true;
 
-  constructor(public router: Router) {
+  constructor(public router: Router, private backendService: BackendService) {
   }
 
   name = new FormControl('', [Validators.required]);
@@ -25,8 +26,15 @@ export class SignUpComponent {
     name: this.name,
     password: this.password,
     password2: this.password2
+  });
 
-  })
+  register() {
+    const userData: object = {
+      'username': this.name.value,
+      'password': this.password.value
+    }
+    this.backendService.register(userData);
+  }
 
   check(control: AbstractControl, control2: AbstractControl) : { check: true } | null {
     if(control.value === control2.value) {
