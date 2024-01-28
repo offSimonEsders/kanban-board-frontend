@@ -6,11 +6,12 @@ import {CardComponent} from "./card/card.component";
 import {Todo} from "../modules/task";
 import {BackendService} from "../services/backend.service";
 import {TodoInfoComponent} from "./todo-info/todo-info.component";
+import {CreateTodoComponent} from "./create-todo/create-todo.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MaterialModule, CommonModule, CardComponent, DragDropModule, TodoInfoComponent],
+  imports: [MaterialModule, CommonModule, CardComponent, DragDropModule, TodoInfoComponent, CreateTodoComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
   done: Todo[] = [];
 
   infoTodo?: Todo;
+  openCreateTask: boolean = false;
 
   tasksMap = {
     todo: [],
@@ -144,7 +146,10 @@ export class HomeComponent implements OnInit {
 
   async updateTodos() {
     const resp = await this.backenService.updateTodos(this.tasks);
-    console.log(await resp.json());
+  }
+
+  toggleOpenCreateTask() {
+    this.openCreateTask = !this.openCreateTask;
   }
 
   protected readonly JSON = JSON;

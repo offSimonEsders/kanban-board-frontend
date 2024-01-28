@@ -25,7 +25,7 @@
     </mat-form-field>
     <div class="button-field">
       <button (click)="goToSignUp($event)" mat-stroked-button color="primary">Sign up</button>
-      <button mat-raised-button color="primary" type="submit" [ngClass]="customformGroup.invalid? 'not-allowed' : ''" [disabled]="customformGroup.invalid">Log in</button>
+      <button mat-raised-button color="primary" type="submit" (click)="login()" [disabled]="customformGroup.invalid">Log in</button>
     </div>
   </form>
 </section>

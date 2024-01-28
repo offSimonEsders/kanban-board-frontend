@@ -1,0 +1,30 @@
+<section class="create-todo-frame">
+  <div (click)="close.emit(true)" class="background"></div>
+  <mat-card class="card">
+    <mat-card-content>
+      <header>
+        <h1>Create todo</h1>
+        <button (click)="close.emit(true)" mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+          <mat-icon>close</mat-icon>
+        </button>
+      </header>
+      <form action="" class="create-todo-form">
+        <mat-form-field>
+          <mat-label>Enter a title</mat-label>
+          <input matInput placeholder="Kochen" [formControl]="title" required>
+          @if (title.invalid) {
+            <mat-error>{{getErrorMessageTitle()}}</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Enter a description</mat-label>
+          <textarea matInput placeholder="Nudeln mit ..." [formControl]="description" required></textarea>
+          @if (description.invalid) {
+            <mat-error>{{getErrorMessageDescription()}}</mat-error>
+          }
+        </mat-form-field>
+        <button mat-raised-button color="warn" [disabled]="formGroup.invalid">Save</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</section>

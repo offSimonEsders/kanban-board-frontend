@@ -3,6 +3,7 @@ import {CommonModule} from "@angular/common";
 import {MaterialModule} from "../material/material.module";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import {BackendService} from "../services/backend.service";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ import {Router} from "@angular/router";
 export class LoginComponent {
   hide: boolean = true;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private backendService: BackendService) {
   }
 
   name = new FormControl('', [Validators.required]);
@@ -26,6 +27,15 @@ export class LoginComponent {
     name: this.name,
     password: this.password
   });
+
+  async login() {
+    const userData: object = {
+      'username': this.name.value,
+      'password': this.password.value
+    };
+    console.log(await this.backendService.login(userData))
+    this.router.navigate(['home']);
+  }
 
   goToSignUp(event: Event) {
     event.preventDefault();
