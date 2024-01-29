@@ -3,7 +3,7 @@ import {MaterialModule} from "../material/material.module";
 import {CommonModule} from "@angular/common";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {CardComponent} from "./card/card.component";
-import {Todo} from "../modules/task";
+import {Todo} from "../modules/todo";
 import {BackendService} from "../services/backend.service";
 import {TodoInfoComponent} from "./todo-info/todo-info.component";
 import {CreateTodoComponent} from "./create-todo/create-todo.component";
@@ -17,7 +17,7 @@ import {CreateTodoComponent} from "./create-todo/create-todo.component";
 })
 export class HomeComponent implements OnInit {
   shownav: boolean = false;
-  tasks: Todo[] = []; //[new Task('1', 0, 'todo', 'asdfg'), new Task('2', 1, 'todo', 'asdgrrdgd'), new Task('5', 1, 'done', '894jj'), new Task('6', 1, 'awaitfeedback', 'ajnjkjkr12')];
+  todos: Todo[] = []; //[new Task('1', 0, 'todo', 'asdfg'), new Task('2', 1, 'todo', 'asdgrrdgd'), new Task('5', 1, 'done', '894jj'), new Task('6', 1, 'awaitfeedback', 'ajnjkjkr12')];
   todo: Todo[] = [];
   inprogress: Todo[] = [];
   awaitfeedback: Todo[] = [];
@@ -38,8 +38,8 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     let resp = await this.backenService.getTodos();
-    this.tasks = await resp.json();
-    console.log(this.tasks)
+    this.todos = await resp.json();
+    console.log(this.todos)
     this.filterTasks();
   }
 
@@ -55,23 +55,23 @@ export class HomeComponent implements OnInit {
   }
 
   filterTasks() {
-    this.todo = this.tasks.filter((task: Todo) => {
+    this.todo = this.todos.filter((task: Todo) => {
       return task.state === 'todo'
     }).sort((a, b) => a.index - b.index);
-    this.inprogress = this.tasks.filter((task: Todo) => {
+    this.inprogress = this.todos.filter((task: Todo) => {
       return task.state === 'inprogress'
     }).sort((a, b) => a.index - b.index);
-    this.awaitfeedback = this.tasks.filter((task: Todo) => {
+    this.awaitfeedback = this.todos.filter((task: Todo) => {
       return task.state === 'awaitfeedback'
     }).sort((a, b) => a.index - b.index);
-    this.done = this.tasks.filter((task: Todo) => {
+    this.done = this.todos.filter((task: Todo) => {
       return task.state === 'done'
     }).sort((a, b) => a.index - b.index);
   }
 
   drop(event: any, droplist: string) {
     const task = JSON.parse(event.item.data);
-    const index = this.tasks.findIndex((t: Todo) => {
+    const index = this.todos.findIndex((t: Todo) => {
       return t.id === task.id;
     });
     const taskNewState: Todo = this.changeContainer(task, droplist, index);
@@ -81,23 +81,23 @@ export class HomeComponent implements OnInit {
   }
 
   changeContainer(item: Todo, newContainerId: string, indexInTasks: number) {
-    this.tasks[indexInTasks].state = newContainerId;
-    return this.tasks[indexInTasks];
+    this.todos[indexInTasks].state = newContainerId;
+    return this.todos[indexInTasks];
   }
 
   callChangeIndexDependingOnState(taskNewState: Todo, currentIndex: number) {
     switch (taskNewState.state) {
       case 'todo':
-        this.tasks = this.changeIndexes(taskNewState, currentIndex, this.tasks, this.todo);
+        this.todos = this.changeIndexes(taskNewState, currentIndex, this.todos, this.todo);
         break;
       case 'inprogress':
-        this.tasks = this.changeIndexes(taskNewState, currentIndex, this.tasks, this.inprogress);
+        this.todos = this.changeIndexes(taskNewState, currentIndex, this.todos, this.inprogress);
         break;
       case 'awaitfeedback':
-        this.tasks = this.changeIndexes(taskNewState, currentIndex, this.tasks, this.awaitfeedback);
+        this.todos = this.changeIndexes(taskNewState, currentIndex, this.todos, this.awaitfeedback);
         break;
       case 'done':
-        this.tasks = this.changeIndexes(taskNewState, currentIndex, this.tasks, this.done);
+        this.todos = this.changeIndexes(taskNewState, currentIndex, this.todos, this.done);
         break;
     }
   }
@@ -152,11 +152,17 @@ export class HomeComponent implements OnInit {
   }
 
   async updateTodos() {
-    const resp = await this.backenService.updateTodos(this.tasks);
+    const resp = await this.backenService.updateTodos(this.todos);
   }
 
   toggleOpenCreateTask() {
     this.openCreateTask = !this.openCreateTask;
+  }
+
+  loadNewTodo(todo: Todo) {
+    console.log(todo)
+    this.todos.push(todo);
+    this.filterTasks();
   }
 
   protected readonly JSON = JSON;

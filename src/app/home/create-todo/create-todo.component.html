@@ -23,7 +23,7 @@
             <mat-error>{{getErrorMessageDescription()}}</mat-error>
           }
         </mat-form-field>
-        <button mat-raised-button color="warn" [disabled]="formGroup.invalid">Save</button>
+        <button mat-raised-button color="warn" (click)="createTodo()" [disabled]="formGroup.invalid">Save</button>
       </form>
     </mat-card-content>
   </mat-card>

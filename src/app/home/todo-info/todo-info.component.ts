@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MaterialModule} from "../../material/material.module";
-import {Todo} from "../../modules/task";
+import {Todo} from "../../modules/todo";
 
 @Component({
   selector: 'app-todo-info',

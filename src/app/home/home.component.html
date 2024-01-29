@@ -49,5 +49,5 @@
   </section>
 
   <app-todo-info *ngIf="infoTodo" [todo]="infoTodo" (close)="closeTodoInfo()"></app-todo-info>
-  <app-create-todo *ngIf="openCreateTask" (close)="toggleOpenCreateTask()"></app-create-todo>
+  <app-create-todo *ngIf="openCreateTask" (close)="toggleOpenCreateTask()" (newTodo)="loadNewTodo($event)"></app-create-todo>
 </section>
