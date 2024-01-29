@@ -12,14 +12,20 @@ export class BackendService {
   }
 
   async login(userData: object) {
-    let authToken = localStorage.getItem('authToken');
     const resp = await fetch(URL + '/login/', {method: 'POST', body: JSON.stringify(userData)});
-    const token = await resp.json();
-    localStorage.setItem('authToken', token.token);
+    const data = await resp.json();
+    localStorage.setItem('user', JSON.stringify(data.user));
+    localStorage.setItem('authToken', data.token);
   }
 
   async register(userData: object) {
     await fetch(URL + '/register/', {method: 'POST', body: JSON.stringify(userData)});
+  }
+
+  async logout() {
+    let authToken = localStorage.getItem('authToken');
+    //localStorage.clear();
+    await fetch(URL + '/logout/', {method: 'POST', headers: {'Authorization': `Token ${authToken}`}, body: JSON.stringify(authToken)})
   }
 
   async checkToken() {

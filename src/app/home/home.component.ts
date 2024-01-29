@@ -43,6 +43,13 @@ export class HomeComponent implements OnInit {
     this.filterTasks();
   }
 
+  getUsername() {
+    const user: string | null = localStorage.getItem('user');
+    if (user) {
+      return JSON.parse(user).username;
+    }
+  }
+
   toggleNav() {
     this.shownav = !this.shownav;
   }
@@ -124,7 +131,7 @@ export class HomeComponent implements OnInit {
     return taskArrayToEdit;
   }
 
-  changeIndexAndReplaceInMainArray (taskArrayToEdit: Todo[], mainTasksArray: Todo []) {
+  changeIndexAndReplaceInMainArray(taskArrayToEdit: Todo[], mainTasksArray: Todo []) {
     taskArrayToEdit.forEach((t: Todo, index: number) => {
       t.index = index;
       mainTasksArray.forEach((t2: Todo) => {

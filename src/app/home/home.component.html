@@ -5,7 +5,7 @@
               aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>👋Hallo ...</span>
+      <span>👋Hallo {{getUsername()}}</span>
       <span class="spacer"></span>
       <button (click)="toggleOpenCreateTask()" mat-raised-button color="accent">Add card</button>
     </mat-toolbar>
@@ -15,7 +15,7 @@
     <div class="content">
       <h1>Kanban board</h1>
       <nav>
-        <button mat-button>Logout</button>
+        <button (click)="backenService.logout()" mat-button>Logout</button>
       </nav>
     </div>
     <div (click)="toggleNav()" class="overlay"></div>
