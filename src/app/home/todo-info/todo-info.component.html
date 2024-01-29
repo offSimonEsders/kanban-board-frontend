@@ -12,7 +12,7 @@
       <p>{{todo?.description}}</p>
       <p><b>Creator: {{todo?.creator?.username}}</b></p>
       <div class="action-buttons">
-        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+        <button (click)="deleteTodo()" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
           <mat-icon>delete</mat-icon>
         </button>
         <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
