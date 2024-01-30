@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Todo} from "../modules/todo";
 import {CreateTodo} from "../modules/create-todo";
 
-const URL = 'http://127.0.0.1:8000';
+const URL = 'https://simonesders.pythonanywhere.com'; //http://127.0.0.1:8000
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,7 @@ export class BackendService {
   async login(userData: object) {
     const resp = await fetch(URL + '/login/', {method: 'POST', body: JSON.stringify(userData)});
     const data = await resp.json();
+    console.log(data)
     localStorage.setItem('user', JSON.stringify(data.user));
     localStorage.setItem('authToken', data.token);
   }
