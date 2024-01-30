@@ -41,6 +41,10 @@ export class BackendService {
     return await fetch(URL + '/createTodo/', {method: 'POST', headers: {'Authorization': `Token ${this.getAuthToken()}`}, body: JSON.stringify(todo)});
   }
 
+  async editTodo(data: object) {
+    return await fetch(URL + '/updateTodo/', {method: 'PUT', headers: {'Authorization': `Token ${this.getAuthToken()}`}, body: JSON.stringify(data)});
+  }
+
   async deleteTodo(todo: Todo) {
     return await fetch(URL + '/delete/', {method: 'POST', headers: {'Authorization': `Token ${this.getAuthToken()}`}, body: JSON.stringify(todo.id)});
   }

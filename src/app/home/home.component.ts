@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   inprogress: Todo[] = [];
   awaitfeedback: Todo[] = [];
   done: Todo[] = [];
+  editTodo?: Todo;
 
   infoTodo?: Todo;
   openCreateTask: boolean = false;
@@ -39,7 +40,7 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     let resp = await this.backenService.getTodos();
     this.todos = await resp.json();
-    console.log(this.todos)
+    console.log(this.editTodo)
     this.filterTasks();
   }
 
@@ -163,6 +164,17 @@ export class HomeComponent implements OnInit {
     console.log(todo)
     this.todos.push(todo);
     this.filterTasks();
+  }
+
+  deleteTodo(todo: Todo) {
+    const index = this.todos.findIndex((t: Todo) => {return t.id === todo.id});
+    this.todos.splice(index, 1);
+    this.filterTasks();
+  }
+
+  setEditTodo(todo: Todo) {
+    this.editTodo = todo;
+    this.openCreateTask = true;
   }
 
   protected readonly JSON = JSON;

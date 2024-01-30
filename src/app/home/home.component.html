@@ -48,6 +48,6 @@
     </div>
   </section>
 
-  <app-todo-info *ngIf="infoTodo" [todo]="infoTodo" (close)="closeTodoInfo()"></app-todo-info>
-  <app-create-todo *ngIf="openCreateTask" (close)="toggleOpenCreateTask()" (newTodo)="loadNewTodo($event)"></app-create-todo>
+  <app-todo-info *ngIf="infoTodo" [todo]="infoTodo" (edit)="setEditTodo($event)" (delete)="deleteTodo($event)" (close)="closeTodoInfo()"></app-todo-info>
+  <app-create-todo *ngIf="openCreateTask" [todo]="editTodo" (close)="toggleOpenCreateTask()" (newTodo)="loadNewTodo($event)"></app-create-todo>
 </section>

@@ -13,6 +13,8 @@ import {BackendService} from "../../services/backend.service";
 export class TodoInfoComponent {
   @Input() todo?: Todo;
   @Output() close = new EventEmitter<boolean>();
+  @Output() delete = new EventEmitter<Todo>();
+  @Output() edit = new EventEmitter<Todo>();
 
   constructor(private backendService: BackendService) {
   }
@@ -20,7 +22,18 @@ export class TodoInfoComponent {
   deleteTodo() {
     if(this.todo) {
       this.backendService.deleteTodo(this.todo);
+      this.delete.emit(this.todo);
+      this.closePopup();
     }
+  }
+
+  openEditTodo() {
+    this.edit.emit(this.todo);
+    this.closePopup();
+  }
+
+  closePopup() {
+    this.close.emit(true);
   }
 
 }
