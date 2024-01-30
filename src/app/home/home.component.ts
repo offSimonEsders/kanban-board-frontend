@@ -7,6 +7,7 @@ import {Todo} from "../modules/todo";
 import {BackendService} from "../services/backend.service";
 import {TodoInfoComponent} from "./todo-info/todo-info.component";
 import {CreateTodoComponent} from "./create-todo/create-todo.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -34,13 +35,12 @@ export class HomeComponent implements OnInit {
     done: []
   }
 
-  constructor(public backenService: BackendService) {
+  constructor(public backenService: BackendService, private router: Router) {
   }
 
   async ngOnInit() {
     let resp = await this.backenService.getTodos();
     this.todos = await resp.json();
-    console.log(this.editTodo)
     this.filterTasks();
   }
 
@@ -161,7 +161,6 @@ export class HomeComponent implements OnInit {
   }
 
   loadNewTodo(todo: Todo) {
-    console.log(todo)
     this.todos.push(todo);
     this.filterTasks();
   }
@@ -175,6 +174,11 @@ export class HomeComponent implements OnInit {
   setEditTodo(todo: Todo) {
     this.editTodo = todo;
     this.openCreateTask = true;
+  }
+
+  logout() {
+    this.backenService.logout();
+    this.router.navigate([''])
   }
 
   protected readonly JSON = JSON;

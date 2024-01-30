@@ -25,7 +25,7 @@ export class BackendService {
 
   async logout() {
     let authToken = this.getAuthToken();
-    //localStorage.clear();
+    localStorage.clear();
     await fetch(URL + '/logout/', {method: 'POST', headers: {'Authorization': `Token ${authToken}`}, body: JSON.stringify(authToken)})
   }
 

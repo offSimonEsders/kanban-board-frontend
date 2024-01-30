@@ -33,7 +33,6 @@ export class LoginComponent {
       'username': this.name.value,
       'password': this.password.value
     };
-    console.log(await this.backendService.login(userData))
     this.router.navigate(['home']);
   }
 
